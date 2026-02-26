@@ -8,7 +8,6 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 app.secret_key = "secret123"
 
-# -------- CONFIG --------
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'pdf'}
 
@@ -17,7 +16,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
-# -------- DATABASE CONNECTION FUNCTION --------
+
 def get_connection():
     return pymysql.connect(
         host='localhost',
@@ -28,11 +27,10 @@ def get_connection():
         cursorclass=pymysql.cursors.DictCursor
     )
 
-# -------- FILE VALIDATION --------
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-# -------- TEXT EXTRACTION --------
+
 def extract_text(filepath):
     text = ""
     try:
@@ -43,7 +41,6 @@ def extract_text(filepath):
         print("PDF Error:", e)
     return text.lower()
 
-# -------- SKILL EXTRACTION --------
 def extract_skills(text, skills):
     found = []
     words = text.split()
@@ -61,7 +58,6 @@ def extract_skills(text, skills):
     return list(set(found))
 
 
-# -------- LOGIN (using email) --------
 @app.route('/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -80,8 +76,8 @@ def login():
             user = cursor.fetchone()
 
             if user:
-                session['user'] = email  # Store email in session
-                session['user_name'] = user['name']  # Store name in session
+                session['user'] = email  
+                session['user_name'] = user['name']  
                 return redirect('/dashboard')
             else:
                 flash("Invalid Email or Password ❌")
@@ -96,7 +92,6 @@ def login():
     return render_template('login.html')
 
 
-# -------- REGISTER (with name, email, password) --------
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -109,12 +104,12 @@ def register():
             password = request.form['password']
             confirm_password = request.form['confirm_password']
 
-            # Check if passwords match
+           
             if password != confirm_password:
                 flash("Passwords do not match ❌")
                 return render_template('register.html')
 
-            # Check if email already exists
+            
             cursor.execute("SELECT * FROM users_login WHERE email=%s", (email,))
             existing_user = cursor.fetchone()
             
@@ -122,7 +117,7 @@ def register():
                 flash("Email already registered ❌")
                 return render_template('register.html')
 
-            # Insert new user
+            
             cursor.execute(
                 "INSERT INTO users_login(name, email, password) VALUES(%s, %s, %s)",
                 (name, email, password)
@@ -142,7 +137,6 @@ def register():
     return render_template('register.html')
 
 
-# -------- DASHBOARD --------
 @app.route('/dashboard')
 def dashboard():
     if 'user' not in session:
@@ -165,7 +159,7 @@ def dashboard():
     return render_template('dashboard.html', roles=roles)
 
 
-# -------- ANALYZE --------
+
 @app.route('/analyze', methods=['POST'])
 def analyze():
     if 'user' not in session:
@@ -208,12 +202,12 @@ def analyze():
 
         missing = list(set(required_skills) - set(user_skills))
 
-        # Save result with user email
+        
         cursor.execute("""
             INSERT INTO results(username, filename, job_role, score, skills, missing_skills)
             VALUES(%s, %s, %s, %s, %s, %s)
         """, (
-            session['user'],  # This is now email
+            session['user'], 
             filename,
             role_name,
             score,
