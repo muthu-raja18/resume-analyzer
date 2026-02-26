@@ -1,0 +1,251 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* BODY - Simple light background */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* HEADER - Simple navigation */
+.header {
+    background-color: #333;
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.header span {
+    font-size: 16px;
+}
+
+.header a {
+    color: white;
+    background-color: #dc3545;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.header a:hover {
+    background-color: #c82333;
+    text-decoration: none;
+}
+
+/* CENTER WRAPPER - Adjusted for fixed header */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Changed from center to flex-start */
+    min-height: 100vh;
+    padding: 20px;
+    margin-top: 70px; /* Slightly increased margin */
+}
+
+/* CARD - Simple white card */
+.form-box {
+    background: white;
+    padding: 30px 25px;
+    width: 380px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    text-align: center;
+    margin-top: 20px; /* Added margin-top to control exact position */
+}
+
+/* INPUT GROUPS */
+.input-group {
+    margin: 20px 0;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+/* BUTTON */
+.btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* LINKS */
+a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* DASHBOARD SPECIFIC */
+.dashboard-box {
+    background: white;
+    padding: 30px 25px;
+    width: 450px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin: 20px auto 0; /* Added top margin */
+}
+
+.dashboard-box h2 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* FILE INPUT */
+input[type="file"] {
+    padding: 8px;
+    background-color: #fafafa;
+}
+
+/* RESULT PAGE */
+.score-box {
+    margin: 25px 0;
+}
+
+.score-box h1 {
+    font-size: 48px;
+    color: #28a745;
+    margin-bottom: 15px;
+}
+
+/* PROGRESS BAR */
+.progress-bar {
+    height: 20px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+.progress {
+    height: 100%;
+    width: 0;
+    background-color: #28a745;
+    transition: width 1s ease;
+    border-radius: 10px;
+}
+
+/* SKILLS TAGS */
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 15px 0 25px;
+    justify-content: center;
+}
+
+.tag {
+    padding: 6px 15px;
+    border-radius: 20px;
+    color: white;
+    font-size: 13px;
+    font-weight: normal;
+}
+
+.success {
+    background-color: #28a745;
+}
+
+.danger {
+    background-color: #dc3545;
+}
+
+/* BACK BUTTON */
+.back-btn {
+    display: inline-block;
+    width: auto;
+    padding: 10px 30px;
+    background-color: #6c757d;
+    margin-top: 20px;
+}
+
+.back-btn:hover {
+    background-color: #5a6268;
+}
+
+/* SUBTITLE */
+.subtitle {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+/* HEADINGS */
+h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+h3 {
+    color: #555;
+    margin: 20px 0 10px;
+    text-align: left;
+    font-size: 16px;
+}
+
+/* FLASH MESSAGES */
+.flash {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* Remove absolute positioning from old header style */
+.header:not(.fixed) {
+    position: relative;
+    top: auto;
+    width: auto;
+}

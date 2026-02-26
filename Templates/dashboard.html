@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard - Resume Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="header">
+    <span>Welcome, {{ session['user_name'] }}</span>
+    <a href="/logout">Logout</a>
+</div>
+
+<div class="container">
+    <div class="dashboard-box">
+        <h2>Resume Skill Analyzer</h2>
+        <p class="subtitle">Upload your resume (PDF) and select a job role</p>
+
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="flash">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form action="/analyze" method="post" enctype="multipart/form-data">
+            <div class="input-group">
+                <label>Upload Resume (PDF only)</label>
+                <input type="file" name="resume" accept=".pdf" required>
+            </div>
+
+            <div class="input-group">
+                <label>Select Job Role</label>
+                <select name="role" required>
+                    <option value="">-- Select a role --</option>
+                    {% for role in roles %}
+                    <option value="{{ role['id'] }}">{{ role['role_name'] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit" class="btn">Analyze Resume</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Analysis Result - Resume Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="header">
+    <span>Welcome, {{ session['user_name'] }}</span>
+    <a href="/logout">Logout</a>
+</div>
+
+<div class="container">
+    <div class="form-box" style="width: 500px;">
+        <h2>Analysis Result</h2>
+        <p style="color: #666; margin-bottom: 20px;">Job Role: <strong>{{ role }}</strong></p>
+
+        <div class="score-box">
+            <h1>{{ score }}%</h1>
+            <div class="progress-bar">
+                <div class="progress" id="progress" data-width="{{ score }}"></div>
+            </div>
+            <p style="color: #666; margin-top: 10px;">Match Score</p>
+        </div>
+
+        <div style="text-align: left;">
+            <h3>✓ Matched Skills ({{ skills|length }})</h3>
+            {% if skills %}
+            <div class="tags">
+                {% for skill in skills %}
+                <span class="tag success">{{ skill }}</span>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p style="color: #666; margin: 10px 0;">No matching skills found</p>
+            {% endif %}
+
+            <h3>✗ Missing Skills ({{ missing|length }})</h3>
+            {% if missing %}
+            <div class="tags">
+                {% for skill in missing %}
+                <span class="tag danger">{{ skill }}</span>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p style="color: #666; margin: 10px 0;">No missing skills - Perfect match!</p>
+            {% endif %}
+        </div>
+
+        <a href="/dashboard" class="btn back-btn">Analyze Another Resume</a>
+    </div>
+</div>
+
+<script>
+    // Simple progress bar animation
+    window.onload = function() {
+        let bar = document.getElementById("progress");
+        let width = bar.getAttribute("data-width");
+        bar.style.width = width + "%";
+    };
+</script>
+
+</body>
+</html>
